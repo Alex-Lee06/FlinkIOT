@@ -11,7 +11,15 @@ Using Flink with Azure IOT Hub
 [**Configuring The Azure IoT Device**](#Configuring-The-Azure-IoT-Device)<br>
 
 
+###Configuring Azure IoT
 
+To start setting up your Azure IoT you can follow this link
+
+```https://learn.microsoft.com/en-us/azure/iot-develop/quickstart-send-telemetry-iot-hub?pivots=programming-language-java```
+
+If you prefer to follow along here you can do so as well.
+
+The first thing that is needed is downloading JDK.  Here we will be using 
 
 
 
