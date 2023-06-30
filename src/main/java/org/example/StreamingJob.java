@@ -55,19 +55,23 @@ public class StreamingJob {
 		public static void main(String[] args) {
 			try {
 				//Load properties from config file
-				Properties properties = new Properties();
-				properties.load(new FileReader(FILE_PATH));
+				//Properties properties = new Properties();
+				//properties.load(new FileReader(FILE_PATH));
 				StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment().setParallelism(1);
 
-				String Topic = properties.getProperty("EventHubName");
-				String broker = properties.getProperty("bootstrapServers");
-				String consumerGroup = properties.getProperty("consumerGroupID");
+				//String Topic = properties.getProperty("EventHubName");
+				//String broker = properties.getProperty("bootstrapServers");
+				//String consumerGroup = properties.getProperty("consumerGroupID");
 
-
+				String password = "Endpoint=sb://ihsuprodblres094dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=tOKQsqHOlyuv1xDZKCgTkxNjcoiLX58Xcadp85jri+k=;EntityPath=iothub-ehub-telemetryd-25096833-a002d81f0c";
+				String connectionString= "HostName=telemetrydocker.azure-devices.net;DeviceId=myDevice;SharedAccessKey=e7DCUMzA1iESOyEnfwgjZOWSVUTNnEmHxU/KyQymVvI=";
 				KafkaSource<String> source = KafkaSource.<String>builder()
-						.setBootstrapServers(broker)
-						.setTopics(Topic)
-						.setGroupId(consumerGroup)
+						.setBootstrapServers("ihsuprodblres094dednamespace.servicebus.windows.net:443")
+						.setTopics("iothub-ehub-telemetryd-25096833-a002d81f0c")
+						.setGroupId("iotflinkmessages")
+						.setProperty("security.protocol", "SSL")
+						.setProperty("sasl.mechanism", "PLAIN")
+						.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + connectionString + "\" password=\"" + password + "\";")
 						.setStartingOffsets(OffsetsInitializer.earliest())
 						.setValueOnlyDeserializer(new SimpleStringSchema())
 						.build();
