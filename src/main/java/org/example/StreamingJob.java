@@ -70,8 +70,7 @@ public class StreamingJob {
 						new TopicPartition("iothub-ehub-telemetryd-25096833-a002d81f0c", 1)
 				));
 
-				String password = "Endpoint=sb://ihsuprodblres094dednamespace.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=tOKQsqHOlyuv1xDZKCgTkxNjcoiLX58Xcadp85jri+k=;EntityPath=iothub-ehub-telemetryd-25096833-a002d81f0c";
-				String connectionString= "HostName=telemetrydocker.azure-devices.net;DeviceId=myDevice;SharedAccessKey=e7DCUMzA1iESOyEnfwgjZOWSVUTNnEmHxU/KyQymVvI=";
+
 				KafkaSource<String> source = KafkaSource.<String>builder()
 						//.setBootstrapServers("137.135.102.226:9093")
 						.setBootstrapServers("ihsuprodblres094dednamespace.servicebus.windows.net:9093")
@@ -85,7 +84,7 @@ public class StreamingJob {
 						.setProperty("security.protocol", "SASL_PLAINTEXT")
 						.setProperty("sasl.mechanism", "PLAIN")
 						//.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"" + connectionString + "\" password=\"" + password + "\";")
-						.setProperty("sasl.jaas.config", "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"HostName=telemetrydocker.azure-devices.net;DeviceId=myDevice;SharedAccessKey=e7DCUMzA1iESOyEnfwgjZOWSVUTNnEmHxU/KyQymVvI=\" password=\"Endpoint=sb://flinkev.servicebus.windows.net/;SharedAccessKeyName=iothubroutes_telemetrydocker;SharedAccessKey=NSAjLJPAl9gyDIB8LsKYfyCs36G1bXZDn+AEhPCsTdw=;EntityPath=iotevflink\";")
+
 						.setStartingOffsets(OffsetsInitializer.committedOffsets(OffsetResetStrategy.EARLIEST))
 						.setValueOnlyDeserializer(new SimpleStringSchema())
 						.build();
